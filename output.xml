@@ -1,160 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 5.0 (Python 3.10.1 on win32)" generated="20220506 09:39:59.422" rpa="false" schemaversion="3">
-<suite id="s1" name="Demo4 Suite" source="E:\Robot_Project\selenium_suite\demo4_suite.robot">
+<robot generator="Robot 5.0 (Python 3.10.1 on win32)" generated="20220507 11:18:24.905" rpa="false" schemaversion="3">
+<suite id="s1" name="Demo2" source="E:\Robot_Project\db_suite\demo2.robot">
 <test id="s1-t1" name="TC1" line="7">
-<kw name="Append To Environment Variable" library="OperatingSystem">
-<arg>Path</arg>
-<arg>E:\\Robot_Driver</arg>
-<doc>Appends given ``values`` to environment variable ``name``.</doc>
-<msg timestamp="20220506 09:40:00.507" level="INFO">Environment variable 'Path' set to value 'C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Users\DELL\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\DELL\AppData\Local\Programs\Python\Python310\;C:\Users\DELL\AppData\Local\Microsoft\WindowsApps;C:\Users\DELL\AppData\Local\Programs\Microsoft VS Code\bin;C:\MingW\mingw32\bin;;E:\Robot_Driver'.</msg>
-<status status="PASS" starttime="20220506 09:40:00.507" endtime="20220506 09:40:00.507"/>
+<kw name="Connect To Database" library="DatabaseLibrary" type="SETUP">
+<arg>dbapiModuleName=pymysql</arg>
+<arg>dbName=dbfree_db</arg>
+<arg>dbUsername=dbfree_db</arg>
+<arg>dbPassword=12345678</arg>
+<arg>dbHost=db4free.net</arg>
+<arg>dbPort=3306</arg>
+<doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to
+connect to the database using `dbName`, `dbUsername`, and `dbPassword`.</doc>
+<msg timestamp="20220507 11:18:25.014" level="INFO">Connecting using : pymysql.connect(db=dbfree_db, user=dbfree_db, passwd=12345678, host=db4free.net, port=3306, charset=None) </msg>
+<status status="PASS" starttime="20220507 11:18:24.967" endtime="20220507 11:18:31.186"/>
 </kw>
-<kw name="Open Browser" library="SeleniumLibrary">
-<arg>url=https://www.salesforce.com/in/form/signup/freetrial-sales/?d=jumbo1-btn-ft</arg>
-<arg>browser=chrome</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<msg timestamp="20220506 09:40:00.507" level="INFO">Opening browser 'chrome' to base url 'https://www.salesforce.com/in/form/signup/freetrial-sales/?d=jumbo1-btn-ft'.</msg>
-<status status="PASS" starttime="20220506 09:40:00.507" endtime="20220506 09:40:21.850"/>
+<kw name="Row Count" library="DatabaseLibrary">
+<var>${row_count}</var>
+<arg>select * from Products</arg>
+<doc>Uses the input `selectStatement` to query the database and returns the number of rows from the query. Set
+optional input `sansTran` to True to run command without an explicit transaction commit or rollback.</doc>
+<msg timestamp="20220507 11:18:31.186" level="INFO">Executing : Row Count  |  select * from Products </msg>
+<msg timestamp="20220507 11:18:31.780" level="INFO">${row_count} = 81</msg>
+<status status="PASS" starttime="20220507 11:18:31.186" endtime="20220507 11:18:31.780"/>
 </kw>
-<kw name="Maximize Browser Window" library="SeleniumLibrary">
-<doc>Maximizes current browser window.</doc>
-<status status="PASS" starttime="20220506 09:40:21.850" endtime="20220506 09:40:21.994"/>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${row_count}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220507 11:18:31.780" endtime="20220507 11:18:31.780"/>
 </kw>
-<kw name="Input Text" library="SeleniumLibrary">
-<arg>name=UserFirstName</arg>
-<arg>Abhishek</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20220506 09:40:21.994" level="INFO">Typing text 'Abhishek' into text field 'name=UserFirstName'.</msg>
-<status status="PASS" starttime="20220506 09:40:21.994" endtime="20220506 09:40:22.218"/>
+<kw name="Log" library="BuiltIn">
+<arg>${row_count}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220507 11:18:31.780" level="INFO">81</msg>
+<status status="PASS" starttime="20220507 11:18:31.780" endtime="20220507 11:18:31.780"/>
 </kw>
-<kw name="Input Text" library="SeleniumLibrary">
-<arg>name=UserLastName</arg>
-<arg>Kashyap</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20220506 09:40:22.218" level="INFO">Typing text 'Kashyap' into text field 'name=UserLastName'.</msg>
-<status status="PASS" starttime="20220506 09:40:22.218" endtime="20220506 09:40:22.370"/>
+<kw name="Disconnect From Database" library="DatabaseLibrary" type="TEARDOWN">
+<doc>Disconnects from the database.</doc>
+<msg timestamp="20220507 11:18:31.795" level="INFO">Executing : Disconnect From Database</msg>
+<status status="PASS" starttime="20220507 11:18:31.795" endtime="20220507 11:18:31.795"/>
 </kw>
-<kw name="Input Text" library="SeleniumLibrary">
-<arg>name=UserEmail</arg>
-<arg>abhi1816516@gmail.com</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20220506 09:40:22.378" level="INFO">Typing text 'abhi1816516@gmail.com' into text field 'name=UserEmail'.</msg>
-<status status="PASS" starttime="20220506 09:40:22.378" endtime="20220506 09:40:22.618"/>
-</kw>
-<kw name="Select From List By Label" library="SeleniumLibrary">
-<arg>name=UserTitle</arg>
-<arg>IT Manager</arg>
-<doc>Selects options from selection list ``locator`` by ``labels``.</doc>
-<msg timestamp="20220506 09:40:22.618" level="INFO">Selecting options from selection list 'name=UserTitle' by label IT Manager.</msg>
-<status status="PASS" starttime="20220506 09:40:22.618" endtime="20220506 09:40:22.746"/>
-</kw>
-<kw name="Input Text" library="SeleniumLibrary">
-<arg>name=CompanyName</arg>
-<arg>LTTS</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20220506 09:40:22.746" level="INFO">Typing text 'LTTS' into text field 'name=CompanyName'.</msg>
-<status status="PASS" starttime="20220506 09:40:22.746" endtime="20220506 09:40:22.898"/>
-</kw>
-<kw name="Select From List By Label" library="SeleniumLibrary">
-<arg>name=CompanyEmployees</arg>
-<arg>101 - 500 employees</arg>
-<doc>Selects options from selection list ``locator`` by ``labels``.</doc>
-<msg timestamp="20220506 09:40:22.898" level="INFO">Selecting options from selection list 'name=CompanyEmployees' by label 101 - 500 employees.</msg>
-<status status="PASS" starttime="20220506 09:40:22.898" endtime="20220506 09:40:23.010"/>
-</kw>
-<kw name="Click Element" library="SeleniumLibrary">
-<arg>Xpath=//div[@class='checkbox-ui']</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<msg timestamp="20220506 09:40:23.010" level="INFO">Clicking element 'Xpath=//div[@class='checkbox-ui']'.</msg>
-<status status="PASS" starttime="20220506 09:40:23.010" endtime="20220506 09:40:23.074"/>
-</kw>
-<kw name="Click Element" library="SeleniumLibrary">
-<arg>name=start my free trial</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<msg timestamp="20220506 09:40:23.074" level="INFO">Clicking element 'name=start my free trial'.</msg>
-<status status="PASS" starttime="20220506 09:40:23.074" endtime="20220506 09:40:23.194"/>
-</kw>
-<kw name="Element Text Should Be" library="SeleniumLibrary">
-<arg>xpath=//span[contain(@,'UserPhone')]</arg>
-<arg>Enter a valid phone number</arg>
-<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
-<msg timestamp="20220506 09:40:23.194" level="INFO">Verifying element 'xpath=//span[contain(@,'UserPhone')]' contains exact text 'Enter a valid phone number'.</msg>
-<msg timestamp="20220506 09:40:23.570" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-28.png"&gt;&lt;img src="selenium-screenshot-28.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg timestamp="20220506 09:40:23.570" level="FAIL">InvalidSelectorException: Message: invalid selector: Unable to locate an element with the xpath expression //span[contain(@,'UserPhone')] because of the following error:
-SyntaxError: Failed to execute 'evaluate' on 'Document': The string '//span[contain(@,'UserPhone')]' is not a valid XPath expression.
-  (Session info: chrome=101.0.4951.54)
-Stacktrace:
-Backtrace:
-	Ordinal0 [0x012CB8F3+2406643]
-	Ordinal0 [0x0125AF31+1945393]
-	Ordinal0 [0x0114C748+837448]
-	Ordinal0 [0x0114F154+848212]
-	Ordinal0 [0x0114F012+847890]
-	Ordinal0 [0x0114F2A0+848544]
-	Ordinal0 [0x01178FF5+1019893]
-	Ordinal0 [0x0117957B+1021307]
-	Ordinal0 [0x011A63AC+1205164]
-	Ordinal0 [0x011942C4+1131204]
-	Ordinal0 [0x011A4682+1197698]
-	Ordinal0 [0x01194096+1130646]
-	Ordinal0 [0x0116E636+976438]
-	Ordinal0 [0x0116F546+980294]
-	GetHandleVerifier [0x01539612+2498066]
-	GetHandleVerifier [0x0152C920+2445600]
-	GetHandleVerifier [0x01364F2A+579370]
-	GetHandleVerifier [0x01363D36+574774]
-	Ordinal0 [0x01261C0B+1973259]
-	Ordinal0 [0x01266688+1992328]
-	Ordinal0 [0x01266775+1992565]
-	Ordinal0 [0x0126F8D1+2029777]
-	BaseThreadInitThunk [0x778C8744+36]
-	RtlGetAppContainerNamedObjectPath [0x779E582D+253]
-	RtlGetAppContainerNamedObjectPath [0x779E57FD+205]
-</msg>
-<status status="FAIL" starttime="20220506 09:40:23.194" endtime="20220506 09:40:24.610"/>
-</kw>
-<status status="FAIL" starttime="20220506 09:40:00.507" endtime="20220506 09:40:24.610">InvalidSelectorException: Message: invalid selector: Unable to locate an element with the xpath expression //span[contain(@,'UserPhone')] because of the following error:
-SyntaxError: Failed to execute 'evaluate' on 'Document': The string '//span[contain(@,'UserPhone')]' is not a valid XPath expression.
-  (Session info: chrome=101.0.4951.54)
-Stacktrace:
-Backtrace:
-	Ordinal0 [0x012CB8F3+2406643]
-	Ordinal0 [0x0125AF31+1945393]
-	Ordinal0 [0x0114C748+837448]
-	Ordinal0 [0x0114F154+848212]
-	Ordinal0 [0x0114F012+847890]
-	Ordinal0 [0x0114F2A0+848544]
-	Ordinal0 [0x01178FF5+1019893]
-	Ordinal0 [0x0117957B+1021307]
-	Ordinal0 [0x011A63AC+1205164]
-	Ordinal0 [0x011942C4+1131204]
-	Ordinal0 [0x011A4682+1197698]
-	Ordinal0 [0x01194096+1130646]
-	Ordinal0 [0x0116E636+976438]
-	Ordinal0 [0x0116F546+980294]
-	GetHandleVerifier [0x01539612+2498066]
-	GetHandleVerifier [0x0152C920+2445600]
-	GetHandleVerifier [0x01364F2A+579370]
-	GetHandleVerifier [0x01363D36+574774]
-	Ordinal0 [0x01261C0B+1973259]
-	Ordinal0 [0x01266688+1992328]
-	Ordinal0 [0x01266775+1992565]
-	Ordinal0 [0x0126F8D1+2029777]
-	BaseThreadInitThunk [0x778C8744+36]
-	RtlGetAppContainerNamedObjectPath [0x779E582D+253]
-	RtlGetAppContainerNamedObjectPath [0x779E57FD+205]
-</status>
+<status status="PASS" starttime="20220507 11:18:24.967" endtime="20220507 11:18:31.795"/>
 </test>
-<status status="FAIL" starttime="20220506 09:39:59.437" endtime="20220506 09:40:24.618"/>
+<test id="s1-t2" name="TC2" line="15">
+<kw name="Connect To Database" library="DatabaseLibrary" type="SETUP">
+<arg>dbapiModuleName=pymysql</arg>
+<arg>dbName=dbfree_db</arg>
+<arg>dbUsername=dbfree_db</arg>
+<arg>dbPassword=12345678</arg>
+<arg>dbHost=db4free.net</arg>
+<arg>dbPort=3306</arg>
+<doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to
+connect to the database using `dbName`, `dbUsername`, and `dbPassword`.</doc>
+<msg timestamp="20220507 11:18:31.795" level="INFO">Connecting using : pymysql.connect(db=dbfree_db, user=dbfree_db, passwd=12345678, host=db4free.net, port=3306, charset=None) </msg>
+<status status="PASS" starttime="20220507 11:18:31.795" endtime="20220507 11:18:37.999"/>
+</kw>
+<kw name="Table Must Exist" library="DatabaseLibrary">
+<arg>Products</arg>
+<doc>Check if the table given exists in the database. Set optional input `sansTran` to True to run command without an
+explicit transaction commit or rollback.</doc>
+<msg timestamp="20220507 11:18:37.999" level="INFO">Executing : Table Must Exist  |  Products </msg>
+<msg timestamp="20220507 11:18:37.999" level="INFO">Executing : Row Count  |  SELECT * FROM information_schema.tables WHERE table_name='Products' </msg>
+<status status="PASS" starttime="20220507 11:18:37.999" endtime="20220507 11:18:40.092"/>
+</kw>
+<kw name="Row Count Is Equal To X" library="DatabaseLibrary">
+<arg>select * from Products</arg>
+<arg>81</arg>
+<doc>Check if the number of rows returned from `selectStatement` is equal to the value submitted. If not, then this
+will throw an AssertionError. Set optional input `sansTran` to True to run command without an explicit
+transaction commit or rollback.</doc>
+<msg timestamp="20220507 11:18:40.092" level="INFO">Executing : Row Count Is Equal To X  |  select * from Products  |  81 </msg>
+<msg timestamp="20220507 11:18:40.092" level="INFO">Executing : Row Count  |  select * from Products </msg>
+<status status="PASS" starttime="20220507 11:18:40.092" endtime="20220507 11:18:41.405"/>
+</kw>
+<kw name="Disconnect From Database" library="DatabaseLibrary" type="TEARDOWN">
+<doc>Disconnects from the database.</doc>
+<msg timestamp="20220507 11:18:41.405" level="INFO">Executing : Disconnect From Database</msg>
+<status status="PASS" starttime="20220507 11:18:41.405" endtime="20220507 11:18:41.405"/>
+</kw>
+<status status="PASS" starttime="20220507 11:18:31.795" endtime="20220507 11:18:41.405"/>
+</test>
+<status status="PASS" starttime="20220507 11:18:24.905" endtime="20220507 11:18:41.405"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="1" skip="0">All Tests</stat>
+<stat pass="2" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="1" skip="0" id="s1" name="Demo4 Suite">Demo4 Suite</stat>
+<stat pass="2" fail="0" skip="0" id="s1" name="Demo2">Demo2</stat>
 </suite>
 </statistics>
 <errors>
